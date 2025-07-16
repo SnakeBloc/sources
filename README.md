@@ -16,18 +16,18 @@ Snake Sources（Public）（Snake集团资源中心（公开））
 
 1. 克隆储存库
    ```bash
-	git clone https://github.com/SnakeBloc/sources.git
-	# else
-	git clone https://bgithub.xyz/SnakeBloc/sources.git
-	```
+   git clone https://github.com/SnakeBloc/sources.git
+   # else
+   git clone https://bgithub.xyz/SnakeBloc/sources.git
+   ```
 2. 修改
 3. 提交
    ```bash
-	git add .
-	git commit "commit name"
-	git push
-	```
+   git add .
+   git commit "commit name"
+   git push
+   ```
 4. 往后每一次修改前请
    ```bash
-	git pull
-	```
+   git pull
+   ```
