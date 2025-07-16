@@ -946,80 +946,25 @@
 			return simulateFileList(path);
 		}
 
-		function simulateFileList(path) {
-			return new Promise((resolve) => {
-				const mockData = {
-					parent: path ? path.split('/').slice(0, -1).join('/') : null,
+		async function getFileList(path) {
+			const response = await fetch('file-structure.json');
+			const mockData = await response.json();
+
+			const current = mockData[path] || null;
+
+			if (!current) {
+				return {
+					parent: path.split('/').slice(0, -1).join(''),
 					folders: [],
 					files: []
 				};
+			}
 
-				if (path === '') {
-					mockData.folders = [
-						{ name: '一中', path: '一中', modified: '2025-07-14' },
-						{ name: 'CSP-J1备考班(2024暑)', path: 'CSP-J1备考班(2024暑)', modified: '2025-07-14' },
-						{ name: 'CSP-J2集训(10.10-10.18)', path: 'CSP-J2集训(10.10-10.18)', modified: '2025-07-14' },
-						{ name: 'J1衔接班', path: 'J1衔接班', modified: '2025-07-14' },
-						{ name: 'Z2-1(S班)', path: 'Z2-1(S班)', modified: '2025-07-14' },
-						{ name: 'Z2-2(S班)', path: 'Z2-2(S班)', modified: '2025-07-14' },
-						{ name: '插件', path: '插件', modified: '2025-07-14' },
-						{ name: 'VJudge Helper', path: 'VJudge Helper', modified: '2025-07-14' },
-					];
-					mockData.files = [
-						{ name: 'GESP编程等级认证大纲1-8级 C++ & Python.pdf', path: 'GESP编程等级认证大纲1-8级 C++ & Python.pdf', type: 'PDF 可携带文件', size: 1291 * 1024, modified: '2025-07-14' },
-						{ name: 'NOI 大纲(2023年修订版).pdf', path: 'NOI 大纲(2023年修订版).pdf', type: 'PDF 可携带文件', size: 6450 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === '一中') {
-					mockData.files = [
-						{ name: '树基础.pptx', path: '一中/树基础.pptx', type: 'PPTX 演示文稿', size: 519 * 1024, modified: '2025-07-14' },
-						{ name: '线性数据结构.pptx', path: '一中/线性数据结构.pptx', type: 'PPTX 演示文稿', size: 4164 * 1024, modified: '2025-07-14' },
-						{ name: '习题1.pdf', path: '一中/习题1.pdf', type: 'PDF 可携带文件', size: 303 * 1024, modified: '2025-07-14' },
-						{ name: '习题1 - 题解.pdf', path: '一中/习题1 - 题解.pdf', type: 'PDF 可携带文件', size: 315 * 1024, modified: '2025-07-14' },
-						{ name: 'slide.pdf', path: '一中/slide.pdf', type: 'PDF 可携带文件', size: 13781 * 1024, modified: '2025-07-14' },
-						{ name: 'slide-1.pdf', path: '一中/slide-1.pdf', type: 'PDF 可携带文件', size: 15778 * 1024, modified: '2025-07-14' },
-						{ name: 'slide-2.pdf', path: '一中/slide-2.pdf', type: 'PDF 可携带文件', size: 7274 * 1024, modified: '2025-07-14' },
-						{ name: '题目.pdf', path: '一中/题目.pdf', type: 'PDF 可携带文件', size: 106 * 1024, modified: '2025-07-14' },
-						{ name: '小测.pdf', path: '一中/小测.pdf', type: 'PDF 可携带文件', size: 80 * 1024, modified: '2025-07-14' },
-						{ name: '小测 (1).pdf', path: '一中/小测 (1).pdf', type: 'PDF 可携带文件', size: 80 * 1024, modified: '2025-07-14' },
-						{ name: '小测 (2).pdf', path: '一中/小测 (2).pdf', type: 'PDF 可携带文件', size: 162 * 1024, modified: '2025-07-14' },
-						{ name: '动态规划经典问题.pptx', path: '一中/动态规划经典问题.pptx', type: 'PPTX 演示文稿', size: 924 * 1024, modified: '2025-07-14' },
-						{ name: '数字三角形问题.pptx', path: '一中/数字三角形问题.pptx', type: 'PPTX 演示文稿', size: 1008 * 1024, modified: '2025-07-14' },
-						{ name: '重叠子问题——递推和动规导入.pptx', path: '一中/重叠子问题——递推和动规导入.pptx', type: 'PPTX 演示文稿', size: 1200 * 1024, modified: '2025-07-14' },
-					];
-				} else if (path === '插件') {
-					mockData.files = [
-						{ name: 'stylus.crx', path: '插件/stylus.crx', type: 'CRX 文件', size: 1032 * 1024, modified: '2025-07-14' },
-						{ name: '篡改猴.crx', path: '插件/篡改猴.crx', type: 'CRX 文件', size: 1627 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === 'VJudge Helper') {
-					mockData.files = [
-						{ name: 'vjudge_helper_v1.2.zip', path: 'VJudge Helper/vjudge_helper_v1.2.zip', type: 'ZIP 压缩文件', size: 30 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === 'CSP-J1备考班(2024暑)') {
-					mockData.files = [
-						{ name: 'CSP-J1备考班(2024暑) 1-5讲.zip', path: 'CSP-J1备考班(2024暑)/CSP-J1备考班(2024暑) 1-5讲.zip', type: 'ZIP 压缩文件', size: 24384 * 1024, modified: '2025-07-14' },
-						{ name: 'CSP-J1备考班(2024暑) 6-10讲.zip', path: 'CSP-J1备考班(2024暑)/CSP-J1备考班(2024暑) 6-10讲.zip', type: 'ZIP 压缩文件', size: 23949 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === 'CSP-J2集训(10.10-10.18)') {
-					mockData.files = [
-						{ name: 'CSP-J2集训(10.10-10.18).zip', path: 'CSP-J2集训(10.10-10.18)/CSP-J2集训(10.10-10.18).zip', type: 'ZIP 压缩文件', size: 1748 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === 'J1衔接班') {
-					mockData.files = [
-						{ name: 'J1衔接班.zip', path: 'J1衔接班/J1衔接班.zip', type: 'ZIP 压缩文件', size: 2390 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === 'Z2-1(S班)') {
-				    mockData.files = [
-						{ name: 'Z2-1(S班).zip', path: 'Z2-1(S班)/Z2-1(S班).zip', type: 'ZIP 压缩文件', size: 5170 * 1024, modified: '2025-07-14' }
-					];
-				} else if (path === 'Z2-2(S班)') {
-					mockData.files = [
-						{ name: 'Z2-2(S班).zip', path: 'Z2-2(S班)/Z2-2(S班).zip', type: 'ZIP 压缩文件', size: 5032 * 1024, modified: '2025-07-14' }
-					];
-				}
-
-				resolve(mockData);
-			});
+			return {
+				parent: path ? path.split('/').slice(0, -1).join('/') : null,
+				folders: current.folders || [],
+				files: current.files || []
+			};
 		}
 
 		function getCurrentDate() {
@@ -1069,9 +1014,9 @@
 		}
 
 		function formatFileSize(bytes) {
-			if (bytes === 0) return '0 Bytes';
+			if (bytes === 0) return '0 KB';
 			const k = 1024;
-			const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+			const sizes = ['KB', 'MB', 'GB', 'TB'];
 			const i = Math.floor(Math.log(bytes) / Math.log(k));
 			return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 		}
