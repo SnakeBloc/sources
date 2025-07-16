@@ -1,5 +1,7 @@
-# Snake Sources
+# _Snake Sources_
 
-Snake Sources(Public)（Snake集团资源中心（公开））
+Snake Sources（Public）（Snake集团资源中心（公开））
 
-存储 [Snake集团](https://hydro.ac/d/Snake/) 非保密资源。
+存储 [SnakeBloc](https://hydro.ac/d/Snake/) 非保密资源。
+
+欢迎集团成员加入此项目一起维护！
