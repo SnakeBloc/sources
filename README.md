@@ -19,7 +19,9 @@ Snake Sources（Public）（Snake集团资源中心（公开））
 1. 克隆储存库
    ```sh
    git clone https://github.com/SnakeBloc/sources.git
-   # else
+   ```
+   或：
+   ```sh
    git clone https://bgithub.xyz/SnakeBloc/sources.git
    ```
 2. 修改
